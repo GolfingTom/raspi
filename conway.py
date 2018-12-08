@@ -15,18 +15,20 @@ def conway():
 
         # need to copy so we're not overwriting cells before we count their neighbors
         new_grid = copy(grid)
-        for i, p in enumerate(grid):
+        
+        for i, color in enumerate(grid):
             # get four closest neighbors in one dimension
-            neighbors = [grid[(i-2) % PIXEL_COUNT],
-                         grid[(i-1) % PIXEL_COUNT],
-                         grid[(i+1) % PIXEL_COUNT],
-                         grid[(i+2) % PIXEL_COUNT]]
+            neighbors = [ grid[(i - 2) % PIXEL_COUNT]
+                        , grid[(i - 1) % PIXEL_COUNT]
+                        , grid[(i + 1) % PIXEL_COUNT]
+                        , grid[(i + 2) % PIXEL_COUNT]
+                        ]
 
             # number of neighbors with light lit
-            live_neighbors = sum(map(lambda x: 1 if x == WHITE else 0, neighbors))
+            live_neighbors = sum([1 for n in neighbors if n == WHITE])
 
             # conway's game of life rules
-            if p == BLACK:
+            if color == BLACK:
                 if live_neighbors == 2 or live_neighbors == 3:
                     new_grid[i] = WHITE
             else:
